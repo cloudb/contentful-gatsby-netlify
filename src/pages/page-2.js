@@ -1,12 +1,39 @@
 import React from 'react'
 import Link from 'gatsby-link'
+import Gallery from '../templates/gallery'
 
-const SecondPage = () => (
-  <div>
-    <h1>Hi from the second page</h1>
-    <p>Welcome to page 2</p>
-    <Link to="/">Go back to the homepage</Link>
-  </div>
-)
+class SecondPage extends React.Component {
+  render () {
+    return (
+      <div>
+
+        <Gallery content={this.props.data.gallery} />
+
+        <Link to="/">Back</Link>
+        
+      </div>
+    )    
+  }
+}
 
 export default SecondPage
+
+export const galleryQuery = graphql`
+  query galleryQuery {
+    gallery: contentfulGallery (title: {eq: "My Gallery"}) {
+      id
+      title
+      images {
+        id
+        title
+        sizes {
+          base64
+          aspectRatio
+          src
+          srcSet
+          sizes
+        }
+      }
+    }
+  }
+`
